@@ -14,6 +14,8 @@
 @property (nonatomic, strong) MHGalleryController    *interactiveToViewController;
 @property (nonatomic, strong) UIView                 *backView;
 @property (nonatomic)         CGRect                 startFrame;
+@property (nonatomic, assign) BOOL                   isPresentingImageViewInitiallyHidden;
+
 @end
 
 
@@ -40,6 +42,7 @@
     
     MHUIImageViewContentViewAnimation *cellImageSnapshot = [[MHUIImageViewContentViewAnimation alloc] initWithFrame:[containerView convertRect:self.presentingImageView.frame fromView:self.presentingImageView.superview]];
     cellImageSnapshot.image = self.presentingImageView.image;
+    self.isPresentingImageViewInitiallyHidden = self.presentingImageView.isHidden;
     self.presentingImageView.hidden = YES;
     
     toViewController.view.frame = [transitionContext finalFrameForViewController:toViewController];
@@ -87,7 +90,7 @@
                     toViewController.view.alpha = 1.0;
                     
                 } completion:^(BOOL finished) {
-                    self.presentingImageView.hidden = NO;
+					self.presentingImageView.hidden = self.isPresentingImageViewInitiallyHidden ?: NO;
                     [cellImageSnapshot removeFromSuperview];
                     [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
                 }];
@@ -110,6 +113,7 @@
     self.transitionImageView = [[MHUIImageViewContentViewAnimation alloc] initWithFrame:[containerView convertRect:self.presentingImageView.frame fromView:self.presentingImageView.superview]];
     self.transitionImageView.image = self.presentingImageView.image;
     self.transitionImageView.contentMode = self.presentingImageView.contentMode;
+    self.isPresentingImageViewInitiallyHidden = self.presentingImageView.isHidden;
     self.presentingImageView.hidden = YES;
     
     self.startFrame = self.transitionImageView.frame;
@@ -159,7 +163,7 @@
             self.backView.alpha = 0;
             self.transitionImageView.frame = self.startFrame;
         } completion:^(BOOL finished) {
-            self.presentingImageView.hidden = NO;
+			self.presentingImageView.hidden = self.isPresentingImageViewInitiallyHidden ?: NO;
 
             [self.transitionImageView removeFromSuperview];
             [self.backView removeFromSuperview];
@@ -201,7 +205,7 @@
             [UIView animateWithDuration:0.2 animations:^{
                 self.interactiveToViewController.view.alpha = 1;
             } completion:^(BOOL finished) {
-                self.presentingImageView.hidden = NO;
+				self.presentingImageView.hidden = self.isPresentingImageViewInitiallyHidden ?: NO;
                 [self.transitionImageView removeFromSuperview];
                 [self.backView removeFromSuperview];
                 [self.context completeTransition:YES];

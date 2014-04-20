@@ -21,6 +21,8 @@
 @property (nonatomic,strong) UIView *backView;
 @property (nonatomic,strong) UIView *containerView;
 @property (nonatomic,strong) MHUIImageViewContentViewAnimation *cellImageSnapshot;
+@property (nonatomic,assign) BOOL isTransitionImageViewInitiallyHidden;
+
 @end
 
 @implementation MHTransitionDismissMHGallery
@@ -55,7 +57,7 @@
     MHUIImageViewContentViewAnimation *cellImageSnapshot = [MHUIImageViewContentViewAnimation.alloc initWithFrame:fromViewController.view.bounds];
     cellImageSnapshot.image = image;
     [cellImageSnapshot setFrame:AVMakeRectWithAspectRatioInsideRect(cellImageSnapshot.imageMH.size,fromViewController.view.bounds)];
-    cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFit;
+    cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFill;
 
     [imageViewer.pageViewController.view setHidden:YES];
     
@@ -100,6 +102,7 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.isTransitionImageViewInitiallyHidden = self.transitionImageView.hidden;
         self.transitionImageView.hidden = YES;
         
         [UIView animateWithDuration:duration animations:^{
@@ -115,7 +118,7 @@
                 cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFill;
             }
         } completion:^(BOOL finished) {
-            self.transitionImageView.hidden = NO;
+			self.transitionImageView.hidden = self.isTransitionImageViewInitiallyHidden ?: NO;
             [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
         }];
         
@@ -156,7 +159,7 @@
     }
     
     self.cellImageSnapshot = [MHUIImageViewContentViewAnimation.alloc initWithFrame:fromViewController.view.bounds];
-    self.cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFit;
+    self.cellImageSnapshot.contentMode = UIViewContentModeScaleAspectFill;
     
     if(!image){
         image = [self setDefaultImageForFrame:fromViewController.view.frame];
@@ -197,9 +200,11 @@
         self.startFrame = self.moviePlayer.view.frame;
         
         [self.containerView addSubview:self.moviePlayer.view];
+        self.isTransitionImageViewInitiallyHidden = self.transitionImageView.hidden;
         self.transitionImageView.hidden = YES;
     }else{
         [self.containerView addSubview:self.cellImageSnapshot];
+        self.isTransitionImageViewInitiallyHidden = self.transitionImageView.hidden;
         self.transitionImageView.hidden = YES;
     }
     self.navFrame = fromViewController.navigationBar.frame;
@@ -294,7 +299,7 @@
             
             self.backView.alpha = 0;
         } completion:^(BOOL finished) {
-            self.transitionImageView.hidden = NO;
+			self.transitionImageView.hidden = self.isTransitionImageViewInitiallyHidden ?: NO;
             [self.cellImageSnapshot removeFromSuperview];
             [self.backView removeFromSuperview];
             [self.context completeTransition:!self.context.transitionWasCancelled];
@@ -325,7 +330,7 @@
         self.backView.alpha = 1;
     } completion:^(BOOL finished) {
         
-        self.transitionImageView.hidden = NO;
+		self.transitionImageView.hidden = self.isTransitionImageViewInitiallyHidden ?: NO;
         [self.cellImageSnapshot removeFromSuperview];
         [self.backView removeFromSuperview];
         

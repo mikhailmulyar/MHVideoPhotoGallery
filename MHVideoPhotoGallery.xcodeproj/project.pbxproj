@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EF074147190434BE0011059F /* activityCopy.png in Resources */ = {isa = PBXBuildFile; fileRef = EF074145190434BE0011059F /* activityCopy.png */; };
+		EF074148190434BE0011059F /* activityCopy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EF074146190434BE0011059F /* activityCopy@2x.png */; };
 		F514263518911D8E0091E3DF /* 707-albums-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F514263318911D8E0091E3DF /* 707-albums-selected.png */; };
 		F514263618911D8E0091E3DF /* 707-albums-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F514263418911D8E0091E3DF /* 707-albums-selected@2x.png */; };
 		F514263918911D920091E3DF /* 705-photos-selected.png in Resources */ = {isa = PBXBuildFile; fileRef = F514263718911D920091E3DF /* 705-photos-selected.png */; };
@@ -114,6 +116,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EF074145190434BE0011059F /* activityCopy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = activityCopy.png; sourceTree = "<group>"; };
+		EF074146190434BE0011059F /* activityCopy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "activityCopy@2x.png"; sourceTree = "<group>"; };
 		F514263318911D8E0091E3DF /* 707-albums-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "707-albums-selected.png"; sourceTree = "<group>"; };
 		F514263418911D8E0091E3DF /* 707-albums-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "707-albums-selected@2x.png"; sourceTree = "<group>"; };
 		F514263718911D920091E3DF /* 705-photos-selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "705-photos-selected.png"; sourceTree = "<group>"; };
@@ -474,6 +478,8 @@
 			children = (
 				F553D2DB1892B58800BA4283 /* activityMH.png */,
 				F553D2DC1892B58800BA4283 /* activtyMH@2x.png */,
+				EF074145190434BE0011059F /* activityCopy.png */,
+				EF074146190434BE0011059F /* activityCopy@2x.png */,
 				F553D32618967E5300BA4283 /* ic_square.png */,
 				F553D32718967E5300BA4283 /* ic_square@2x.png */,
 				F553D2DD1892B58800BA4283 /* EditControl.png */,
@@ -716,7 +722,9 @@
 				F53F924E17EB008100A9FE6A /* InfoPlist.strings in Resources */,
 				F553D3151892B58800BA4283 /* sliderPoint.png in Resources */,
 				F553D3141892B58800BA4283 /* saveMH@2x.png in Resources */,
+				EF074147190434BE0011059F /* activityCopy.png in Resources */,
 				F5EE8DA61890393D002E5734 /* testIcon@2x.png in Resources */,
+				EF074148190434BE0011059F /* activityCopy@2x.png in Resources */,
 				F553D30B1892B58800BA4283 /* messageMH@2x.png in Resources */,
 				F553D2FE1892B58800BA4283 /* EditControl.png in Resources */,
 				F553D3051892B58800BA4283 /* facebookMH@2x.png in Resources */,

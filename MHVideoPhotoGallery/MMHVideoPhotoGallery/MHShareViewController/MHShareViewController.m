@@ -201,6 +201,7 @@
 @property (nonatomic)        CGFloat startPointScroll;
 @property (nonatomic,strong) MHShareItem *saveObject;
 @property (nonatomic,strong) MHShareItem *mailObject;
+@property (nonatomic,strong) MHShareItem *copiedObject;
 @property (nonatomic,strong) MHShareItem *messageObject;
 @property (nonatomic,strong) MHShareItem *twitterObject;
 @property (nonatomic,strong) MHShareItem *faceBookObject;
@@ -222,6 +223,12 @@
                                               withSelector:@"saveImages:"
                                           onViewController:self];
     
+    self.copiedObject = [[MHShareItem alloc] initWithImageName:@"activityCopy"
+                                                         title:MHGalleryLocalizedString (@"Copy")
+                                          withMaxNumberOfItems:5
+                                                  withSelector:@"copyImages:"
+                                              onViewController:self];
+
     self.mailObject = [MHShareItem.alloc initWithImageName:@"mailMH"
                                                      title:MHGalleryLocalizedString(@"shareview.mail")
                                       withMaxNumberOfItems:10
@@ -384,7 +391,7 @@
     }
     
     self.shareDataSource = [NSMutableArray arrayWithArray:@[shareObjectAvailable,
-                                                            @[[self saveObject]]
+                                                            @[[self saveObject], [self copiedObject]]
                                                             ]];
     
     self.shareDataSourceStart = [NSArray arrayWithArray:self.shareDataSource];
@@ -956,6 +963,15 @@
     } saveDataToCameraRoll:YES];
 }
 
+- (void) copyImages:(NSArray *)object
+{
+	[self getAllImagesForSelectedRows:^(NSArray *images)
+     {
+         [[UIPasteboard generalPasteboard] setImages:images];
+         
+         [self cancelPressed];
+     } saveDataToCameraRoll:NO];
+}
 
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
